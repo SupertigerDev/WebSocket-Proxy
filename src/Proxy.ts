@@ -24,13 +24,17 @@ export class Proxy {
     this.proxy.on("connection", socket => {
       const id = flake.gen().toString()
       this.eventListener["connection"]?.(socket, () => this.connectToServer(socket))
-
+      socket.on("message", data => {
+        // console.log(data);
+      })
     })
   }
   on<K extends keyof Events>(event: K, cb: Events[K]) {
     this.eventListener[event] = cb;
   }
-  connectToServer(socket: WebSocket) {
+  connectToServer(proxy: WebSocket) {
+    // const server = new WebSocket(this.opts.serverURL);
+
     
   }
 }
